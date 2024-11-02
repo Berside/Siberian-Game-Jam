@@ -123,6 +123,32 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &526847862 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5554876406859317956, guid: 73432e06be859ff4688b22284b1c8e31, type: 3}
+  m_PrefabInstance: {fileID: 4599485586262225151}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &526847864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526847862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c90ae65fd518084a883e5ac883632f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  totalAmmo: 45
+  magSize: 15
+  reloadCooldown: 1
+  shootCooldown: 0.1
+  fullAuto: 0
+  totalAmmoLeft: 0
+  magCurrentAmmo: 0
+  reloading: 0
 --- !u!1 &1402989080
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,10 +363,21 @@ PrefabInstance:
       propertyPath: m_BodyType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7796622416886585147, guid: 73432e06be859ff4688b22284b1c8e31, type: 3}
+      propertyPath: fullAuto
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7796622416886585147, guid: 73432e06be859ff4688b22284b1c8e31, type: 3}
+      propertyPath: bulletSpeed
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5554876406859317956, guid: 73432e06be859ff4688b22284b1c8e31, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 526847864}
   m_SourcePrefab: {fileID: 100100000, guid: 73432e06be859ff4688b22284b1c8e31, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
