@@ -5,15 +5,19 @@ using UnityEngine;
 public class SmoothPlayerFollow : MonoBehaviour
 {
     [SerializeField]
-    protected Transform target;
-
-    [SerializeField]
     protected Vector3 offset;
 
     [SerializeField]
     protected float damping;
 
+    private Transform target;
+
     private Vector3 velocity = Vector3.zero;
+
+    private void Start()
+    {
+        target = GameObject.FindWithTag("Player").transform;
+    }
 
     // Update is called once per frame
     void FixedUpdate()
