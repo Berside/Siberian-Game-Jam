@@ -5,7 +5,10 @@ using UnityEngine;
 public class WeaponStats : MonoBehaviour
 {
     [SerializeField]
-    protected float damage = 1;
+    protected GameObject bulletPrefab;
+
+    [SerializeField]
+    protected float bulletSpeed;
 
     [SerializeField]
     protected int totalAmmo = 45;
@@ -31,11 +34,15 @@ public class WeaponStats : MonoBehaviour
     [SerializeField]
     private bool reloading = false;
 
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         totalAmmoLeft = totalAmmo;
         magCurrentAmmo = 0;
+
+        animator = GetComponent<Animator>();
     }
 
     public int getTotalAmmo()
@@ -46,27 +53,37 @@ public class WeaponStats : MonoBehaviour
     {
         return magCurrentAmmo;
     }
+    public int getMagSize()
+    {
+        return magSize;
+    }
     public bool FullAuto()
     {
         return fullAuto;
     }
-    public float getDamage()
-    {
-        return damage;
-    }
     public float ShootCooldown()
     {
         return shootCooldown;
+    }
+    public int getTotalAmmoLeft()
+    {
+        return totalAmmoLeft;
     }
     public float getReloadCooldown()
     {
         return reloadCooldown;
     }
 
-    public void fire()
+    public void fire(Transform gunEndPointPosition)
     {
         if (magCurrentAmmo > 0)
         {
+            animator.SetTrigger("Fire");
+
+            GameObject bullet = Instantiate(bulletPrefab, gunEndPointPosition.position, gunEndPointPosition.rotation);
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            rb.AddForce(-gunEndPointPosition.up * bulletSpeed, ForceMode2D.Impulse);
+
             magCurrentAmmo--;
         }
     }
@@ -79,6 +96,10 @@ public class WeaponStats : MonoBehaviour
                 Invoke("_reload", reloadCooldown);
             reloading = true;
         }
+    }
+    public bool Reloading()
+    {
+        return reloading;
     }
 
     private void _reload()

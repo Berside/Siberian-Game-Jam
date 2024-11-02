@@ -8,12 +8,6 @@ public class WeaponAim : MonoBehaviour
 {
     private Transform aimTransform;
 
-    [SerializeField]
-    protected GameObject bulletPrefab;
-
-    [SerializeField]
-    protected float bulletSpeed;
-
     private Transform gunEndPointPosition;
     private float time = 0;
 
@@ -55,10 +49,7 @@ public class WeaponAim : MonoBehaviour
                 if (time >= weaponStats.ShootCooldown())
                 {
                     // here happens shooting :)
-                    GameObject bullet = Instantiate(bulletPrefab, gunEndPointPosition.position, gunEndPointPosition.rotation);
-                    Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-                    weaponStats.fire();
-                    rb.AddForce(-gunEndPointPosition.up * bulletSpeed, ForceMode2D.Impulse);
+                    weaponStats.fire(gunEndPointPosition);
                     time = 0;
                 }
             }
@@ -68,10 +59,7 @@ public class WeaponAim : MonoBehaviour
             if (Input.GetButtonDown("Fire1") && weaponStats.getCurrentAmmo() > 0)
             {
                 // here happens shooting :)
-                GameObject bullet = Instantiate(bulletPrefab, gunEndPointPosition.position, gunEndPointPosition.rotation);
-                Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-                weaponStats.fire();
-                rb.AddForce(-gunEndPointPosition.up * bulletSpeed, ForceMode2D.Impulse);
+                weaponStats.fire(gunEndPointPosition);
             }
         }
     }

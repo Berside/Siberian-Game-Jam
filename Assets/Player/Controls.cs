@@ -22,11 +22,35 @@ public class Controls : MonoBehaviour
     private float dashCounter;
     private float dashCooldownCounter;
 
+    private WeaponStats weaponStats;
+
+    private bool dashing;
+
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         activeMoveSpeed = moveSpeed;
         rb2d = GetComponent<Rigidbody2D>();
+
+        Debug.Log(transform.Find("Aim"));
+        Debug.Log(transform.Find("Aim").GetChild(0));
+        Debug.Log(transform.Find("Aim").GetChild(0).GetComponent<WeaponStats>());
+        weaponStats = transform.Find("Aim").GetChild(0).GetComponent<WeaponStats>();
+
+        animator = GetComponent<Animator>();
+    }
+
+    public void setMoveSpeed(float moveSpeed)
+    {
+        this.moveSpeed = moveSpeed;
+        activeMoveSpeed = moveSpeed;
+    }
+
+    public float getMoveSpeed()
+    {
+        return this.moveSpeed;
     }
 
     // Update is called once per frame
@@ -41,11 +65,24 @@ public class Controls : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (dashCooldownCounter <= 0 && dashCounter <= 0)
+            if (dashCooldownCounter <= 0 && dashCounter <= 0 && !weaponStats.Reloading())
             {
+                animator.SetTrigger("Sprint");
+
                 activeMoveSpeed = dashSpeed;
                 dashCounter = dashLength;
+
+                dashing = true;
             }
+        }
+
+        if (weaponStats.Reloading())
+        {
+            activeMoveSpeed = moveSpeed - 1.5f;
+        }
+        if (!dashing && !weaponStats.Reloading())
+        {
+            activeMoveSpeed = moveSpeed;
         }
 
         if (dashCounter > 0)
@@ -56,6 +93,7 @@ public class Controls : MonoBehaviour
             {
                 activeMoveSpeed = moveSpeed;
                 dashCooldownCounter = dashCooldown;
+                dashing = false;
             }
         }
 

@@ -22,7 +22,10 @@ public class SmoothPlayerFollow : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 movePosition = target.position + offset;
-        transform.position = Vector3.SmoothDamp(transform.position, movePosition, ref velocity, damping);
+        if (target != null)
+        {
+            Vector3 movePosition = target.position + offset;
+            transform.position = Vector3.SmoothDamp(transform.position, movePosition, ref velocity, damping);
+        }
     }
 }
