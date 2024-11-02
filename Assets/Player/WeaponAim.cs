@@ -43,7 +43,7 @@ public class WeaponAim : MonoBehaviour
 
         Vector3 aimDirection = (mousePosition - transform.position).normalized;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        aimTransform.eulerAngles = new Vector3(0, 0, angle);
+        transform.eulerAngles = new Vector3(0, 0, angle + 93f);
     }
 
     private void HandleShooting()
@@ -58,7 +58,7 @@ public class WeaponAim : MonoBehaviour
                     GameObject bullet = Instantiate(bulletPrefab, gunEndPointPosition.position, gunEndPointPosition.rotation);
                     Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
                     weaponStats.fire();
-                    rb.AddForce(gunEndPointPosition.right * bulletSpeed, ForceMode2D.Impulse);
+                    rb.AddForce(-gunEndPointPosition.up * bulletSpeed, ForceMode2D.Impulse);
                     time = 0;
                 }
             }
@@ -71,7 +71,7 @@ public class WeaponAim : MonoBehaviour
                 GameObject bullet = Instantiate(bulletPrefab, gunEndPointPosition.position, gunEndPointPosition.rotation);
                 Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
                 weaponStats.fire();
-                rb.AddForce(gunEndPointPosition.right * bulletSpeed, ForceMode2D.Impulse);
+                rb.AddForce(-gunEndPointPosition.up * bulletSpeed, ForceMode2D.Impulse);
             }
         }
     }
