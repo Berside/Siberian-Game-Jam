@@ -3,9 +3,14 @@ using System.Collections;
 using UnityEngine.UI;
 public class  Trigger : MonoBehaviour
 {
+    [SerializeField]
+    protected GameObject Door;
 
-    public GameObject disableObject;
-    private bool PlayerEnteredTriggerZone; 
+    private bool doorClosed = true;
+
+    private bool PlayerEnteredTriggerZone;
+
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("OnTriggerEnter2D");
@@ -31,8 +36,16 @@ public class  Trigger : MonoBehaviour
             Debug.Log("uPDATE2DPlayer");
             if (PlayerEnteredTriggerZone == true)
             {
-                Debug.Log("BAB");
-                disableObject.SetActive(false);
+                if (doorClosed)
+                {
+                    Door.transform.Rotate(0, 0, -90);
+                    doorClosed = false;
+                }
+                else
+                {
+                    Door.transform.Rotate(0, 0, 90);
+                    doorClosed = true;
+                }
             }
         }
     }
