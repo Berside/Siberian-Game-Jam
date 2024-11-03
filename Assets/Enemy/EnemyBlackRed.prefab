@@ -178,9 +178,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roamSpeed: 2
-  sightRange: 10
+  sightRange: 7
   hearingRange: 5
-  shootingRange: 8
+  shootingRange: 7
   shootingCooldown: 1
   wallLayer:
     serializedVersion: 2
