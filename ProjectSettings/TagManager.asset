@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - door
   - Weapon
+  - bullet
   layers:
   - Default
   - TransparentFX
