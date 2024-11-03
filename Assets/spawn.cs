@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy()
     {
         Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-        count = count + 5;
+        count = count + 3;
     }
 }
 
