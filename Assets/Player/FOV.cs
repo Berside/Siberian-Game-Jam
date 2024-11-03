@@ -1,31 +1,48 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class FOV : MonoBehaviour
 {
     public float viewDistance = 12f;       // Distance the player can see
-    public float viewAngle = 60f;          // Angle of field of view in degrees
+    public float viewAngle = 120f;          // Angle of field of view in degrees
     public LayerMask enemyLayer;           // Layer containing the enemies
     public LayerMask obstacleLayer;        // Layer containing obstacles (walls)
+
+    public float visionCooldown;
+
+    private float time = 0;
+
     private List<GameObject> visibleEnemies = new List<GameObject>();
 
     private void Start()
     {
-        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
-        {
-            enemy.GetComponent<SpriteRenderer>().enabled = false;
-        }
+        
     }
 
     void Update()
     {
         FindVisibleEnemies();
+        time += Time.deltaTime;
+
+        Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, viewDistance, enemyLayer);
+
+        var enemiesInRangeSet = new HashSet<GameObject>(enemiesInRange.Select(collider => collider.gameObject));
+
+        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            if (!enemiesInRangeSet.Contains(enemy))
+            {
+                enemy.GetComponent<SpriteRenderer>().enabled = false;
+                enemy.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false; // Hide the gun
+            }
+        }
     }
 
     void FindVisibleEnemies()
     {
         visibleEnemies.Clear();
-        Debug.Log(visibleEnemies);
+
         Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, viewDistance, enemyLayer);
 
         foreach (var enemyCollider in enemiesInRange)
@@ -43,15 +60,27 @@ public class FOV : MonoBehaviour
                 {
                     visibleEnemies.Add(enemy);
                     enemy.GetComponent<SpriteRenderer>().enabled = true; // Show the enemy
+                    enemy.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true; // Show the gun
+                    time = 0;
                 }
                 else
                 {
-                    enemy.GetComponent<SpriteRenderer>().enabled = false; // Hide the enemy if a wall is in the way
+                    if (time >= visionCooldown)
+                    {
+                        enemy.GetComponent<SpriteRenderer>().enabled = false; // Hide the enemy if a wall is in the way
+                        enemy.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false; // Hide the gun
+                        time = 0;
+                    }
                 }
             }
             else
             {
-                enemy.GetComponent<SpriteRenderer>().enabled = true; // Hide the enemy if out of view angle
+                if (time >= visionCooldown)
+                {
+                    enemy.GetComponent<SpriteRenderer>().enabled = false; // Hide the enemy if out of view angle
+                    enemy.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false; // Hide the gun
+                    time = 0;
+                }
             }
         }
     }
