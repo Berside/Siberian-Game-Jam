@@ -135,12 +135,12 @@ MonoBehaviour:
   bulletSpeed: 35
   totalAmmo: 9
   magSize: 3
-  reloadCooldown: 1.5
-  shootCooldown: 1
+  reloadCooldown: 4
+  shootCooldown: 2
   fullAuto: 1
   interactable: 0
   totalAmmoLeft: 0
-  magCurrentAmmo: 0
+  magCurrentAmmo: 3
   reloading: 0
 --- !u!95 &2893289539550118264
 Animator:
