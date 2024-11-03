@@ -26,6 +26,9 @@ public class WeaponStats : MonoBehaviour
     protected bool fullAuto = false;
 
     [SerializeField]
+    private bool interactable = false;
+
+    [SerializeField]
     private int totalAmmoLeft;
 
     [SerializeField]
@@ -43,6 +46,15 @@ public class WeaponStats : MonoBehaviour
         magCurrentAmmo = 0;
 
         animator = GetComponent<Animator>();
+    }
+
+    public bool getInteractable()
+    {
+        return interactable;
+    }
+    public void setInteractable(bool value)
+    {
+        interactable = value;
     }
 
     public int getTotalAmmo()
@@ -101,6 +113,10 @@ public class WeaponStats : MonoBehaviour
     {
         return reloading;
     }
+    public void setReloading(bool value)
+    {
+        reloading = value;
+    }
 
     private void _reload()
     {
@@ -121,6 +137,6 @@ public class WeaponStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

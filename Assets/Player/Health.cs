@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
@@ -30,8 +31,37 @@ public class Health : MonoBehaviour
     public void Death(float deathCooldown = 0f)
     {
         // То что мертво, умереть не может
-        if (!dead) Invoke("_Death", deathCooldown);
+
+        // Enemy death
+        if (gameObject.CompareTag("Enemy"))
+        {
+            DropWeapon();
+            gameObject.layer = 0;
+            gameObject.tag = "Untagged";
+
+        }
+        // Player death
+        else if (gameObject.CompareTag("Player"))
+        {
+
+        }
+        else
+        {
+            if (!dead) Invoke("_Death", deathCooldown);
+        }
         dead = true;
+    }
+
+    private void DropWeapon()
+    {
+        if (Random.Range(0, 10) > 3)
+            return;
+
+        GameObject weapon = Instantiate(gameObject.transform.GetChild(0).gameObject, transform.position + Vector3.one, Quaternion.identity);
+        weapon.GetComponent<WeaponStats>().setInteractable(true);
+        weapon.AddComponent<PickUpWeapon>();
+        weapon.GetComponent<BoxCollider2D>().enabled = true;
+        Destroy(gameObject.transform.GetChild(0).gameObject);
     }
 
     private void _Death()

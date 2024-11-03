@@ -24,6 +24,12 @@ public class WeaponAim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gunEndPointPosition == null || weaponStats == null)
+        {
+            gunEndPointPosition = aimTransform.GetChild(0).Find("GunEndPointPosition").transform;
+            weaponStats = aimTransform.GetChild(0).GetComponent<WeaponStats>();
+        }
+
         time += Time.deltaTime;
 
         HandleAiming();

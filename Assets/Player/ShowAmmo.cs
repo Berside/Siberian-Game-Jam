@@ -21,6 +21,11 @@ public class ShowAmmo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(weaponStats == null)
+        {
+            weaponStats = GameObject.FindWithTag("Player").transform.Find("Aim").transform.GetChild(0).transform.GetComponent<WeaponStats>();
+        }
+
         if (weaponStats.getCurrentAmmo() <= 3 && weaponStats.getTotalAmmoLeft() != 0)
         {
             reloadText.enabled = true;

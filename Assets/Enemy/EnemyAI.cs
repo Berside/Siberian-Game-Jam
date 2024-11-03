@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
     private bool canShoot;
 
     [SerializeField]
-    private enum State { Roaming, Detecting, Engaging }
+    private enum State { Roaming, Detecting, Engaging, Dead }
 
     private void Start()
     {
@@ -39,6 +39,14 @@ public class EnemyAI : MonoBehaviour
                 transform.up = -(player.position - transform.position).normalized;
                 EngagePlayer();
                 break;
+            case State.Dead:
+                Dead();
+                break;
+        }
+
+        if (gameObject.GetComponent<Health>().isDead())
+        {
+            state = State.Dead;
         }
     }
 
@@ -100,6 +108,11 @@ public class EnemyAI : MonoBehaviour
             state = State.Roaming;
             ChooseNewRoamDirection();
         }
+    }
+
+    private void Dead()
+    {
+
     }
 
     private bool CanSeePlayer()
