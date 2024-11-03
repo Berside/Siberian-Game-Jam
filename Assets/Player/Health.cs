@@ -13,10 +13,12 @@ public class Health : MonoBehaviour
 
     private bool dead = false;
 
+    private Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -36,14 +38,20 @@ public class Health : MonoBehaviour
         if (gameObject.CompareTag("Enemy"))
         {
             DropWeapon();
+            animator.SetBool("Dead", true);
             gameObject.layer = 0;
             gameObject.tag = "Untagged";
+            gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
 
+            Invoke("_Death", 8);
         }
         // Player death
         else if (gameObject.CompareTag("Player"))
         {
+            animator.SetBool("Dead", true);
 
+            // make canvas with gameover appear
+            // get info on kills and score from player data
         }
         else
         {
@@ -54,8 +62,11 @@ public class Health : MonoBehaviour
 
     private void DropWeapon()
     {
-        if (Random.Range(0, 10) > 3)
-            return;
+        //if (Random.Range(0, 10) > 3)
+        //{
+        //    Destroy(gameObject.transform.GetChild(0).gameObject);
+        //    return;
+        //}
 
         GameObject weapon = Instantiate(gameObject.transform.GetChild(0).gameObject, transform.position + Vector3.one, Quaternion.identity);
         weapon.GetComponent<WeaponStats>().setInteractable(true);

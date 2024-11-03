@@ -105,6 +105,7 @@ public class WeaponStats : MonoBehaviour
         if (magCurrentAmmo != magSize)
         {
             if (!reloading)
+                animator.SetTrigger("Reload");
                 Invoke("_reload", reloadCooldown);
             reloading = true;
         }
