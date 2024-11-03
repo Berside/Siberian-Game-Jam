@@ -109,7 +109,7 @@ MonoBehaviour:
   fullAuto: 0
   interactable: 0
   totalAmmoLeft: 0
-  magCurrentAmmo: 0
+  magCurrentAmmo: 7
   reloading: 0
 --- !u!95 &8378425460504809881
 Animator:
