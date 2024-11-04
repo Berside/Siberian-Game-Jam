@@ -12,8 +12,12 @@ public class DialogueManager : MonoBehaviour
 
     public Text charName;
 
+    private AudioSource audioSource;
+
     public Image Cop;
     public Image Bro;
+
+    private bool startedPlaying = false;
 
     private Tuple<string, string>[] messages = {
         new Tuple<string, string>("Рик", "Ты снова упариваешься этой наркотой!?"),
@@ -37,7 +41,7 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -72,16 +76,30 @@ public class DialogueManager : MonoBehaviour
         charName.text = currentMessage.Item1;
         textArea.text = currentMessage.Item2;
 
+        if (!startedPlaying)
+        {
+            audioSource.PlayOneShot((AudioClip)Resources.Load("SoundEffects/Prologue/" + (message + 1).ToString()));
+            startedPlaying = true;
+        }
+
         if (Input.GetButtonDown("Fire1"))
         {
+            audioSource.Stop();
+            startedPlaying = false;
             message++;
         }
         if (Input.GetButtonDown("Fire2"))
         {
             if (message > 0)
+            {
                 message--;
+            }
             else
+            {
                 message = 0;
+            }
+            audioSource.Stop();
+            startedPlaying = false;
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
