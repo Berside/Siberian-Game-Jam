@@ -27,6 +27,9 @@ public class WeaponAim : MonoBehaviour
         if (GetComponent<Health>().isDead())
             return;
 
+        if (Time.timeScale == 0)
+            return;
+
         if (gunEndPointPosition == null || weaponStats == null)
         {
             gunEndPointPosition = aimTransform.GetChild(0).Find("GunEndPointPosition").transform;

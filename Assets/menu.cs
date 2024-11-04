@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class MenuCTRL : MonoBehaviour
 {
     public Button playButton;
+    public Button restartButton;
     public Button exitButton;
-    public GameObject pauseMenu—;
 
     void Start()
     {
@@ -15,21 +15,22 @@ public class MenuCTRL : MonoBehaviour
 
     private void InitializeButtons()
     {
-        playButton.onClick.AddListener(OnPlayClick);
+        playButton.onClick.AddListener(GetComponent<PauseMenuController>().ResumeGame);
+        restartButton.onClick.AddListener(OnRestartClick);
         exitButton.onClick.AddListener(OnExitClick);
     }
 
-    void OnPlayClick()
+    void OnRestartClick()
     {
-        Debug.Log("OnPlayClick");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
-        pauseMenu—.SetActive(false);
+        gameObject.GetComponent<Canvas>().enabled = false;
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     void OnExitClick()
     {
-        Debug.Log("OnExitClick");
+        Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
 }

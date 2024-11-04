@@ -2,12 +2,11 @@ using UnityEngine;
 using System.Collections;
 public class PauseMenuController : MonoBehaviour
 {
-    public GameObject pauseMenu;
     private bool isPaused = false;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !GameObject.FindGameObjectWithTag("Player").GetComponent<Health>().isDead())
         {
             TogglePause();
         }
@@ -25,17 +24,19 @@ public class PauseMenuController : MonoBehaviour
         }
     }
 
-    void PauseGame()
+    public void PauseGame()
     {
         Time.timeScale = 0f;
         isPaused = true;
-        pauseMenu.SetActive(true);
+        GetComponent<Canvas>().enabled = true;
+        gameObject.transform.GetChild(0).gameObject.SetActive(true);
     }
 
-    void ResumeGame()
+    public void ResumeGame()
     {
         Time.timeScale = 1f;
         isPaused = false;
-        pauseMenu.SetActive(false);
+        GetComponent<Canvas>().enabled = false;
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
 }
