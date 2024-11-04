@@ -8,6 +8,9 @@ public class WeaponStats : MonoBehaviour
     protected GameObject bulletPrefab;
 
     [SerializeField]
+    protected string weaponType;
+
+    [SerializeField]
     protected float bulletSpeed;
 
     [SerializeField]
@@ -91,6 +94,18 @@ public class WeaponStats : MonoBehaviour
         if (magCurrentAmmo > 0)
         {
             animator.SetTrigger("Fire");
+            if (weaponType == "pistol")
+            {
+                gameObject.GetComponent<AudioSource>().PlayOneShot((AudioClip)Resources.Load("SoundEffects/Weapons/pistol_fire"));
+            }
+            else if (weaponType == "shitgun")
+            {
+                gameObject.GetComponent<AudioSource>().PlayOneShot((AudioClip)Resources.Load("SoundEffects/Weapons/shitgun_fire"));
+            }
+            else if (weaponType == "smg")
+            {
+                gameObject.GetComponent<AudioSource>().PlayOneShot((AudioClip)Resources.Load("SoundEffects/Weapons/smg_fire"));
+            }
 
             GameObject bullet = Instantiate(bulletPrefab, gunEndPointPosition.position, gunEndPointPosition.rotation);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
@@ -107,6 +122,20 @@ public class WeaponStats : MonoBehaviour
             if (!reloading)
             {
                 animator.SetTrigger("Reload");
+
+                if (weaponType == "pistol")
+                {
+                    gameObject.GetComponent<AudioSource>().PlayOneShot((AudioClip)Resources.Load("SoundEffects/Weapons/pistol_reload"));
+                }
+                else if (weaponType == "shitgun")
+                {
+                    gameObject.GetComponent<AudioSource>().PlayOneShot((AudioClip)Resources.Load("SoundEffects/Weapons/shitgun_reload"));
+                }
+                else if (weaponType == "smg")
+                {
+                    gameObject.GetComponent<AudioSource>().PlayOneShot((AudioClip)Resources.Load("SoundEffects/Weapons/smg_reload"));
+                }
+
                 Invoke("_reload", reloadCooldown);
             }
             reloading = true;

@@ -39,6 +39,9 @@ public class Health : MonoBehaviour
         {
             DropWeapon();
             animator.SetBool("Dead", true);
+            if (!dead)
+                gameObject.GetComponent<AudioSource>().PlayOneShot((AudioClip)Resources.Load("SoundEffects/Characters/enemy_death"));
+
             gameObject.layer = 0;
             gameObject.tag = "Untagged";
             gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
@@ -53,6 +56,8 @@ public class Health : MonoBehaviour
         else if (gameObject.CompareTag("Player"))
         {
             animator.SetBool("Dead", true);
+            if(!dead)
+                gameObject.GetComponent<AudioSource>().PlayOneShot((AudioClip)Resources.Load("SoundEffects/Characters/player_death"));
         }
         else
         {
