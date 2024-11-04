@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
+    [SerializeField]
     private int kills = 0;
+    [SerializeField]
     private int score = 0;
 
     // Start is called before the first frame update

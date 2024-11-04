@@ -7,10 +7,12 @@ using UnityEngine.UI;
 public class Death : MonoBehaviour
 {
     public GameObject RestartWindowBtns;
+    public GameObject ContinueWindowBtns;
     public Button RestartBtn;
     public Button ExitBtn;
 
     public Button ContinueBtn;
+    public Button RestartInContinueBtn;
 
     public Text ScoreText;
 
@@ -29,6 +31,7 @@ public class Death : MonoBehaviour
         ExitBtn.onClick.AddListener(ExitToMainMenu);
 
         ContinueBtn.onClick.AddListener(Continue);
+        RestartInContinueBtn.onClick.AddListener(Restart);
     }
 
     // Update is called once per frame
@@ -41,7 +44,7 @@ public class Death : MonoBehaviour
 
             if (player.GetComponent<PlayerData>().getKills() >= killsToContinue)
             {
-                ContinueBtn.gameObject.SetActive(true);
+                ContinueWindowBtns.SetActive(true);
             }
             else
             {

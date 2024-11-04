@@ -26,6 +26,12 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
+        if (GameObject.FindWithTag("Player").GetComponent<Health>().isDead())
+            return;
+
+        if (GetComponent<Health>().isDead())
+            state = State.Dead;
+
         player = GameObject.FindWithTag("Player").transform;
         switch (state)
         {
@@ -42,11 +48,6 @@ public class EnemyAI : MonoBehaviour
             case State.Dead:
                 Dead();
                 break;
-        }
-
-        if (gameObject.GetComponent<Health>().isDead())
-        {
-            state = State.Dead;
         }
     }
 

@@ -24,6 +24,9 @@ public class WeaponAim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GetComponent<Health>().isDead())
+            return;
+
         if (gunEndPointPosition == null || weaponStats == null)
         {
             gunEndPointPosition = aimTransform.GetChild(0).Find("GunEndPointPosition").transform;

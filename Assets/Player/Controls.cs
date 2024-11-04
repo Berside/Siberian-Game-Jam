@@ -34,9 +34,6 @@ public class Controls : MonoBehaviour
         activeMoveSpeed = moveSpeed;
         rb2d = GetComponent<Rigidbody2D>();
 
-        Debug.Log(transform.Find("Aim"));
-        Debug.Log(transform.Find("Aim").GetChild(0));
-        Debug.Log(transform.Find("Aim").GetChild(0).GetComponent<WeaponStats>());
         weaponStats = transform.Find("Aim").GetChild(0).GetComponent<WeaponStats>();
 
         animator = GetComponent<Animator>();
@@ -56,6 +53,12 @@ public class Controls : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GetComponent<Health>().isDead())
+        {
+            rb2d.velocity = Vector2.zero;
+            return;
+        }
+
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
 

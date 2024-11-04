@@ -43,7 +43,7 @@ public class WeaponStats : MonoBehaviour
     void Start()
     {
         totalAmmoLeft = totalAmmo;
-        magCurrentAmmo = 0;
+        magCurrentAmmo = magSize;
 
         animator = GetComponent<Animator>();
     }
@@ -105,8 +105,10 @@ public class WeaponStats : MonoBehaviour
         if (magCurrentAmmo != magSize)
         {
             if (!reloading)
+            {
                 animator.SetTrigger("Reload");
                 Invoke("_reload", reloadCooldown);
+            }
             reloading = true;
         }
     }
@@ -121,7 +123,7 @@ public class WeaponStats : MonoBehaviour
 
     private void _reload()
     {
-        if (totalAmmoLeft >= magSize - magCurrentAmmo && magCurrentAmmo < magSize)
+        if (totalAmmoLeft >= (magSize - magCurrentAmmo) && magCurrentAmmo < magSize)
         {
             totalAmmoLeft -= (magSize - magCurrentAmmo);
             magCurrentAmmo = magSize;

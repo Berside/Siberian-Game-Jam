@@ -43,15 +43,16 @@ public class Health : MonoBehaviour
             gameObject.tag = "Untagged";
             gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
 
+            var playerData = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerData>();
+            playerData.setKills(playerData.getKills() + 1);
+            playerData.setScore(playerData.getScore() + 10);
+
             Invoke("_Death", 8);
         }
         // Player death
         else if (gameObject.CompareTag("Player"))
         {
             animator.SetBool("Dead", true);
-
-            // make canvas with gameover appear
-            // get info on kills and score from player data
         }
         else
         {
@@ -62,11 +63,11 @@ public class Health : MonoBehaviour
 
     private void DropWeapon()
     {
-        //if (Random.Range(0, 10) > 3)
-        //{
-        //    Destroy(gameObject.transform.GetChild(0).gameObject);
-        //    return;
-        //}
+        if (Random.Range(0, 10) > 3)
+        {
+            Destroy(gameObject.transform.GetChild(0).gameObject);
+            return;
+        }
 
         GameObject weapon = Instantiate(gameObject.transform.GetChild(0).gameObject, transform.position + Vector3.one, Quaternion.identity);
         weapon.GetComponent<WeaponStats>().setInteractable(true);
