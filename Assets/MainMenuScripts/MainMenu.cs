@@ -24,7 +24,7 @@ public class MainMenuController : MonoBehaviour
 
     void OnPlayClick()
     {
-        SceneManager.LoadScene("level1");
+        SceneManager.LoadScene("Prologue");
     }
     void OnExitClick()
     {
