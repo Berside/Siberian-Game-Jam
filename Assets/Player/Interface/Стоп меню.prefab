@@ -114,8 +114,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000051498, y: 239}
-  m_SizeDelta: {x: 265.07, y: 111.38}
+  m_AnchoredPosition: {x: 0, y: 239}
+  m_SizeDelta: {x: 445.0136, y: 111.38}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4732722323301303342
 CanvasRenderer:
@@ -158,7 +158,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Gigcka
+  m_Text: Drug Stories
 --- !u!1 &1729285310036715326
 GameObject:
   m_ObjectHideFlags: 0
