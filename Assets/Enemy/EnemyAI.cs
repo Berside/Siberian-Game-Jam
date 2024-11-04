@@ -43,6 +43,7 @@ public class EnemyAI : MonoBehaviour
                 break;
             case State.Engaging:
                 transform.up = -(player.position - transform.position).normalized;
+                transform.rotation = Quaternion.Euler(0, 0, transform.eulerAngles.z);
                 EngagePlayer();
                 break;
             case State.Dead:
